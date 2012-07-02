@@ -39,6 +39,10 @@ objects from S3, which allows using credentials.
     key_id=<YOURKEY>
     secret_key=<YOURSECRET>
 
+# CLI Interface
+
+By default, this plugin disables repos not available on S3. To access these public repos, include the `--public-repos` flag when calling the yum CLI.
+
 # YUM edge cases (baseurl)
 
 The is a flaw/issue/bug in yum, that stops yum-s3 from working, when

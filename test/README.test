@@ -1,9 +1,0 @@
-Tests currently focus only on urlgrabber and request signing
-
-In order to run you either need to add YUM packages to your PYTHON_PATH
-or you need to comment out code from createGrabber() on down in s3.py
-
-You also need to edit testvalues.py to include you aws_key_id and aws_secret_key,
-and edit the urls and filenames to point to an existing file on an existing s3 bucket
-that you have access to.
-
