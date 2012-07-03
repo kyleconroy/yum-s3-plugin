@@ -102,6 +102,13 @@ class AmazonS3Repo(YumRepository):
         self.enable()
         self.grabber = None
 
+    def _getFile(self, *args, **kwargs):
+        """Authenticate the package URL."""
+        url = kwargs['url'] + '/' + kwargs['relative']
+        url = authenticate(url, self.key_id, self.secret_key)
+        kwargs['relative'] = url.replace(kwargs['url'] + '/', '')
+        return YumRepository._getFile(self, *args, **kwargs)
+
     def _getgrabfunc(self):
         raise Exception("get grabfunc!")
 
