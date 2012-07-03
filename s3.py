@@ -75,21 +75,24 @@ class UrllibGrabber(object):
         self.aws_access_key = aws_access_key
         self.aws_secret_key = aws_secret_key
 
+    def auth(self, url):
+        return authenticate("%s%s" % (self.baseurl, url),
+                            self.aws_access_key, self.aws_secret_key)
+
     def urlgrab(self, url, filename, **kwargs):
         """urlgrab(url) copy the file to the local filesystem"""
-        url = authenticate("%s%s" % (self.baseurl, url),
-                           self.aws_access_key, self.aws_secret_key)
+        url = self.auth(url)
         self.logger.debug("urlgrab url=%s filename=%s" % (url, filename))
         filename, headers = self.opener.retrieve(url, filename)
         return filename
 
     def urlopen(self, url, **kwargs):
         """urlopen(url) open the remote file and return a file object"""
-        return urllib2.urlopen(self._request(url))
+        return urllib2.urlopen(self.auth(url))
 
     def urlread(self, url, limit=None, **kwargs):
         """urlread(url) return the contents of the file as a string"""
-        return urllib2.urlopen(self._request(url)).read()
+        return urllib2.urlopen(self.auth(url)).read()
 
 
 class AmazonS3Repo(YumRepository):
